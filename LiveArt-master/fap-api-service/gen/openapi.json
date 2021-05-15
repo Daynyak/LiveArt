@@ -1,0 +1,294 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Find and Play",
+    "version" : "0.1.0"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:10010/api/v1"
+  } ],
+  "paths" : {
+    "/museums" : {
+      "get" : {
+        "description" : "Returns list of museums",
+        "operationId" : "museums",
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/museumsResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "x-swagger-router-controller" : "museums-controller"
+    },
+    "/museums/{museum}" : {
+      "get" : {
+        "description" : "Returns description of museum",
+        "operationId" : "museum",
+        "parameters" : [ {
+          "name" : "museum",
+          "in" : "path",
+          "description" : "target museum",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/museumResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "x-swagger-router-controller" : "museums-controller"
+    },
+    "/events" : {
+      "get" : {
+        "description" : "Returns list of sport events",
+        "operationId" : "events",
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/EventsResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "x-swagger-router-controller" : "events-controller"
+    },
+    "/events/{event}" : {
+      "get" : {
+        "description" : "Returns description of sport event",
+        "operationId" : "event",
+        "parameters" : [ {
+          "name" : "event",
+          "in" : "path",
+          "description" : "target event",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/EventResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "x-swagger-router-controller" : "events-controller"
+    },
+    "/swagger" : {
+      "x-swagger-pipe" : "swagger_raw"
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "museumsResponse" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/museum"
+        }
+      },
+      "museum" : {
+        "required" : [ "id" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "number"
+          },
+          "image" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "address" : {
+            "type" : "string"
+          },
+          "sport" : {
+            "type" : "string"
+          }
+        }
+      },
+      "museumResponse" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/museumCertain"
+        }
+      },
+      "museumCertain" : {
+        "required" : [ "id" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "number"
+          },
+          "image" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "address" : {
+            "type" : "string"
+          },
+          "sport" : {
+            "type" : "string"
+          },
+          "size" : {
+            "type" : "number"
+          },
+          "capacity" : {
+            "type" : "number"
+          },
+          "surface" : {
+            "type" : "string"
+          }
+        }
+      },
+      "EventsResponse" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/Event"
+        }
+      },
+      "Event" : {
+        "required" : [ "id" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "number"
+          },
+          "image" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "address" : {
+            "type" : "string"
+          },
+          "date" : {
+            "type" : "string"
+          },
+          "organizer" : {
+            "type" : "string"
+          }
+        }
+      },
+      "EventResponse" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/EventCertain"
+        }
+      },
+      "EventCertain" : {
+        "required" : [ "id" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "number"
+          },
+          "image" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "address" : {
+            "type" : "string"
+          },
+          "date" : {
+            "type" : "string"
+          },
+          "sport" : {
+            "type" : "string"
+          },
+          "organizer" : {
+            "type" : "string"
+          },
+          "price" : {
+            "type" : "number"
+          },
+          "seats" : {
+            "type" : "number"
+          }
+        }
+      },
+      "ErrorResponse" : {
+        "required" : [ "message" ],
+        "type" : "object",
+        "properties" : {
+          "message" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
+}
